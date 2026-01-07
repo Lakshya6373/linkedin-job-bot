@@ -60,11 +60,15 @@ def health():
     return {"status": "running", "bot": "active"}
 
 def run():
+    """Run Flask server"""
     port = int(os.environ.get('PORT', 8080))
-    app.run(host='0.0.0.0', port=port)
+    print(f"🌐 Starting web server on port {port}")
+    app.run(host='0.0.0.0', port=port, debug=False, use_reloader=False)
 
 def keep_alive():
     """Start the web server in a separate thread"""
+    print("🔌 Starting keep-alive server...")
     t = Thread(target=run)
     t.daemon = True
     t.start()
+    print("✅ Keep-alive server thread started")

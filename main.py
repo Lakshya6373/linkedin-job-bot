@@ -16,11 +16,13 @@ try:
 except ImportError:
     import config
 
-# Start keep-alive server for Replit
-if os.environ.get('REPL_ID'):
+# Start keep-alive server for Replit (must be before JobAutomation)
+if os.environ.get('REPL_ID') or os.environ.get('REPLIT_DEPLOYMENT'):
+    print("🔍 Detected Replit environment")
     from keep_alive import keep_alive
     keep_alive()
-    print("✅ Keep-alive server started for Replit")
+    time.sleep(2)  # Give server time to start
+    print("✅ Keep-alive server started")
 
 class JobAutomation:
     def __init__(self):
