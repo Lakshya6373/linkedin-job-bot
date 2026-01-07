@@ -16,14 +16,6 @@ try:
 except ImportError:
     import config
 
-# Start keep-alive server for Replit (must be before JobAutomation)
-if os.environ.get('REPL_ID') or os.environ.get('REPLIT_DEPLOYMENT'):
-    print("🔍 Detected Replit environment")
-    from keep_alive import keep_alive
-    keep_alive()
-    time.sleep(2)  # Give server time to start
-    print("✅ Keep-alive server started")
-
 class JobAutomation:
     def __init__(self):
         """Initialize automation components"""
@@ -186,6 +178,14 @@ class JobAutomation:
 
 def main():
     """Main entry point"""
+    # Start keep-alive server for Replit FIRST (before anything else)
+    if os.environ.get('REPL_ID') or os.environ.get('REPLIT_DEPLOYMENT'):
+        print("🔍 Detected Replit environment")
+        from keep_alive import keep_alive
+        keep_alive()
+        print("✅ Keep-alive server started")
+        time.sleep(3)  # Give Flask time to bind to port
+    
     automation = JobAutomation()
     
     # Check command line arguments
