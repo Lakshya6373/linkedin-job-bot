@@ -4,6 +4,7 @@ Runs the scraper every 10 minutes and sends notifications
 """
 import time
 import sys
+import os
 from datetime import datetime
 from linkedin_scraper import LinkedInJobScraper
 from telegram_notifier import TelegramNotifier
@@ -14,6 +15,12 @@ try:
     import config_render as config
 except ImportError:
     import config
+
+# Start keep-alive server for Replit
+if os.environ.get('REPL_ID'):
+    from keep_alive import keep_alive
+    keep_alive()
+    print("✅ Keep-alive server started for Replit")
 
 class JobAutomation:
     def __init__(self):
