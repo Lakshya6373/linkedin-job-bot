@@ -1,0 +1,10 @@
+# Keep your config.py secure - don't commit real values!
+config.py
+jobs.db
+*.pyc
+__pycache__/
+.env
+*.log
+job_scraper.log
+.venv/
+venv/
